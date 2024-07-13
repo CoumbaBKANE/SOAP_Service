@@ -11,8 +11,12 @@ public class UserDAO {
 
     Connection connexion ;
 
-    public UserDAO() throws SQLException {
-        connexion = new ConnexionBaseDonnees().getConnection() ;
+    public UserDAO()  {
+        try {
+            connexion = new ConnexionBaseDonnees().getConnection() ;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
@@ -94,7 +98,7 @@ public class UserDAO {
     }
 
     public Utilisateur getByLoginPass(Utilisateur user){
-        String sql = "SELECT * FROM users_news WHERE username = ? AND password = ?";
+        String sql = "SELECT * FROM users_news WHERE login = ? AND password = ?";
         try {
             PreparedStatement statement = connexion.prepareStatement(sql);
             statement.setString(1, user.getNom());
