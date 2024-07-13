@@ -13,6 +13,7 @@ public class AuthentificationService {
 
     private static AuthentificationService authentificationService;
     private AuthentificationService() {
+        this.tokens.put("4256", "coumbaK");
 
     }
 

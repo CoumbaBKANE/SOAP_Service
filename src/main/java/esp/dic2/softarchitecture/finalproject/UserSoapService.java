@@ -1,46 +1,33 @@
-package esp.dic2.softarchitecture.finalproject.controllers;
+package esp.dic2.softarchitecture.finalproject;
 
+import esp.dic2.softarchitecture.finalproject.services.AuthentificationService;
 import esp.dic2.softarchitecture.finalproject.services.UtilisateurService;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import jakarta.jws.WebService;
 
-import esp.dic2.softarchitecture.finalproject.model.domain.Utilisateur;
-import esp.dic2.softarchitecture.finalproject.model.dao.UserDAO;
-
 
 import java.sql.SQLException;
-import java.util.*;
 
 
 //POJO
 
-//@WebService(serviceName = "UserSoap_Service")
-public class UserSoapController {
+@WebService(serviceName = "UserSoap_Service")
+public class UserSoapService {
 
     public UtilisateurService utilisateurService = new UtilisateurService();
+    public AuthentificationService authentificationService = AuthentificationService.getInstance();
 
-//
-//    private boolean estValideIdentiant(final String admin_login, final String admin_pass) throws SQLException {
-//
-//        Utilisateur user_to_check = userDAO.getByLoginPass(new Utilisateur(admin_login, admin_pass));
-//        if(user_to_check != null){
-//            return true;
-//        }
-//        return false;
-//    }
-//
-//    @WebMethod(operationName="ajoutUtilisateur")
-//    public String ajoutUtilisateur(@WebParam(name = "token") String token, @WebParam(name = "nom_user") String nom_user, @WebParam(name = "mot_de_passe") String mot_de_passe) throws SQLException {
-//        if (validateToken(token)) {
-//            Utilisateur user = new Utilisateur(nom_user, mot_de_passe);
-//            userDAO.addUser(user);
-//            return "Utilisateur ajouté avec succès";
-//        }
-//        return "Utilisateur non valide";
-//
-//    }
-//
+    @WebMethod(operationName ="authentification")
+    public String authentification(String login, String mot_de_passe ) throws SQLException {
+        return authentificationService.authentification(login, mot_de_passe);
+    }
+
+    @WebMethod(operationName="ajoutUtilisateur")
+    public String ajoutUtilisateur(@WebParam(name = "token") String token, @WebParam(name = "nom_user") String nom_user, @WebParam(name = "mot_de_passe") String mot_de_passe) throws SQLException {
+        return utilisateurService.ajoutUtilisateur(token, nom_user, mot_de_passe);
+    }
+
 //    @WebMethod(operationName="listeUtilisateurs")
 //    public List<Utilisateur> listeUtilisateur(@WebParam(name = "token") String token) throws Exception {
 //        if (validateToken(token)) {

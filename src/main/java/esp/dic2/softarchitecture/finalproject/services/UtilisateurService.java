@@ -18,10 +18,9 @@ public class UtilisateurService {
         if (authentificationService.validateToken(token)) {
             Utilisateur user = new Utilisateur(nom_user, mot_de_passe);
             userDAO.addUser(user);
-            return "Utilisateur ajouté avec succès";
+            return "SUCCESS";
         }
-        return "Utilisateur non valide";
-
+        return "FAILED";
     }
 
     public List<Utilisateur> listeUtilisateur( String token) throws Exception {
