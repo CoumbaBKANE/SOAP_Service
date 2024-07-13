@@ -1,4 +1,4 @@
-package esp.dic2.softarchitecture.finalproject.model;
+package esp.dic2.softarchitecture.finalproject.model.domain;
 
 
 public class Utilisateur {
