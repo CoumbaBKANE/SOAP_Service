@@ -21,7 +21,7 @@ public class UserSoapService {
     public AuthenticationService authenticationService = AuthenticationService.getInstance();
 
     @WebMethod(operationName ="authentification")
-    public String authentification(String login, String mot_de_passe ) throws SQLException {
+    public String authentification(String login, String mot_de_passe ) {
         return authenticationService.authentification(login, mot_de_passe);
     }
 
@@ -31,14 +31,14 @@ public class UserSoapService {
     }
 
     @WebMethod(operationName="listeUtilisateurs")
-    public List<User> listeUtilisateur(@WebParam(name = "token") String token) throws Exception {
+    public List<User> listeUtilisateur(@WebParam(name = "token") String token) {
         return userService.listeUtilisateur(token);
     }
 
     @WebMethod(operationName = "modifUtilisateur")
     public String modifUtilisateur(@WebParam(name = "token") String token,
                                    @WebParam(name = "nom_user") String nom_user,
-                                   @WebParam(name = "mot_de_passe") String mot_de_passe) throws Exception {
+                                   @WebParam(name = "mot_de_passe") String mot_de_passe) {
         return userService.modifUtilisateur(token, nom_user, mot_de_passe);
     }
 
@@ -46,7 +46,7 @@ public class UserSoapService {
     @WebMethod(operationName = "supprimerUtilisateur")
     public String supprimerUtilisateur(@WebParam(name = "token") String token,
                                        @WebParam(name = "nom_user") String nom_user,
-                                       @WebParam(name = "mot_de_passe") String mot_de_passe) throws Exception {
+                                       @WebParam(name = "mot_de_passe") String mot_de_passe) {
 
         return userService.supprimerUtilisateur(token, nom_user, mot_de_passe);
     }
