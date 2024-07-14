@@ -10,7 +10,6 @@ public class ConfigurationManager {
     private final String basePath = "/src/main/java/resources/config.properties";
 
     protected ConfigurationManager() {
-        System.out.println(FileManager.getInstance().getAbsolutePath());
         String currentPath = FileManager.getInstance().getAbsolutePath()+basePath;
         configProperties = new Properties();
         try {

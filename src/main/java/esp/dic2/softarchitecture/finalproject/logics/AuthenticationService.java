@@ -1,34 +1,31 @@
-package esp.dic2.softarchitecture.finalproject.services;
+package esp.dic2.softarchitecture.finalproject.logics;
 
 import esp.dic2.softarchitecture.finalproject.model.dao.UserDAO;
-import esp.dic2.softarchitecture.finalproject.model.domain.Utilisateur;
-import jakarta.jws.WebMethod;
-import jakarta.jws.WebParam;
+import esp.dic2.softarchitecture.finalproject.model.domain.User;
 
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class AuthentificationService {
+public class AuthenticationService {
 
-    private static AuthentificationService authentificationService;
-    private AuthentificationService() {
+    private static AuthenticationService authenticationService;
+    private AuthenticationService() {
         this.tokens.put("4256", "coumbaK");
 
     }
 
-    public static AuthentificationService getInstance() {
-        if (authentificationService == null)
-            authentificationService = new AuthentificationService();
-        return authentificationService;
+    public static AuthenticationService getInstance() {
+        if (authenticationService == null)
+            authenticationService = new AuthenticationService();
+        return authenticationService;
     }
 
-    private HashMap<String, String> tokens = new HashMap<>();
-
+    private final HashMap<String, String> tokens = new HashMap<>();
     private final UserDAO userDAO = new UserDAO();
 
     public String authentification(String login, String mot_de_passe ) throws SQLException {
-        Utilisateur auth_user = userDAO.getByLoginPass(new Utilisateur(login, mot_de_passe));
+        User auth_user = userDAO.getByLoginPass(new User(login, mot_de_passe));
         if(auth_user != null){
             return "SUCCESS";
         }
@@ -45,12 +42,8 @@ public class AuthentificationService {
     }
 
     private boolean estValideIdentiant(final String admin_login, final String admin_pass) throws SQLException {
-
-        Utilisateur user_to_check = userDAO.getByLoginPass(new Utilisateur(admin_login, admin_pass));
-        if(user_to_check != null){
-            return true;
-        }
-        return false;
+        User user_to_check = userDAO.getByLoginPass(new User(admin_login, admin_pass));
+        return user_to_check != null;
     }
 
     public boolean validateToken(String token) {

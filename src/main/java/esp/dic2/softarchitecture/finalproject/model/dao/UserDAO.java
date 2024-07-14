@@ -1,6 +1,6 @@
 package esp.dic2.softarchitecture.finalproject.model.dao;
 
-import  esp.dic2.softarchitecture.finalproject.model.domain.Utilisateur;
+import esp.dic2.softarchitecture.finalproject.model.domain.User;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ public class UserDAO {
 
     public UserDAO()  {
         try {
-            connexion = new ConnexionBaseDonnees().getConnection() ;
+            connexion = new DatabaseConnection().getConnection() ;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -21,8 +21,8 @@ public class UserDAO {
     }
 
 
-    public List<Utilisateur> getAll() throws SQLException {
-        List<Utilisateur> users = new ArrayList<>();
+    public List<User> getAll() throws SQLException {
+        List<User> users = new ArrayList<>();
         try  {
             String sql = "SELECT * FROM users_news ";
             Statement statement = connexion.createStatement();
@@ -30,7 +30,7 @@ public class UserDAO {
             while (resultSet.next()) {
                 String userName = resultSet.getString("login");
                 String userPassword = resultSet.getString("password");
-                Utilisateur user = new Utilisateur(userName, userPassword);
+                User user = new User(userName, userPassword);
                 users.add(user);
             }
 
@@ -40,7 +40,7 @@ public class UserDAO {
         return users;
     }
 
-    public Utilisateur getByLogin(String login) {
+    public User getByLogin(String login) {
         try  {
             String sql = "SELECT * FROM users_news WHERE login = ?";
             PreparedStatement statement = connexion.prepareStatement(sql);
@@ -50,7 +50,7 @@ public class UserDAO {
                 String userName = resultSet.getString("login");
                 String userPassword = resultSet.getString("password");
 
-                return new Utilisateur(userName, userPassword);
+                return new User(userName, userPassword);
             }
 
         } catch (SQLException e) {
@@ -59,7 +59,7 @@ public class UserDAO {
         return null;
     }
 
-    public void addUser(Utilisateur user){
+    public void addUser(User user){
         try{
             String sql = "INSERT INTO users_news (login, password) VALUES (?, ?)";
             PreparedStatement statement = connexion.prepareStatement(sql);
@@ -71,7 +71,7 @@ public class UserDAO {
         }
     }
 
-    public void updateUser(Utilisateur user){
+    public void updateUser(User user){
         try {
             String sql = "UPDATE users_news set login=?, password=? WHERE login = ?";
             PreparedStatement statement = connexion.prepareStatement(sql);
@@ -85,19 +85,19 @@ public class UserDAO {
         }
     }
 
-    public void deleteUser(Utilisateur user){
+    public void deleteUser(User user){
         String sql = "DELETE FROM users_news WHERE login = ? and password = ?";
         try {
             PreparedStatement statement = connexion.prepareStatement(sql);
             statement.setString(1, user.getNom());
             statement.setString(2, user.getMot_de_passe());
-            statement.executeQuery();
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public Utilisateur getByLoginPass(Utilisateur user){
+    public User getByLoginPass(User user){
         String sql = "SELECT * FROM users_news WHERE login = ? AND password = ?";
         try {
             PreparedStatement statement = connexion.prepareStatement(sql);
@@ -107,7 +107,7 @@ public class UserDAO {
             if (resultSet.next()) {
                 String userName = resultSet.getString("login");
                 String userPassword = resultSet.getString("password");
-                return new Utilisateur(userName, userPassword);
+                return new User(userName, userPassword);
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -1,5 +1,6 @@
 package esp.dic2.softarchitecture.finalproject;
 
+import esp.dic2.softarchitecture.finalproject.soapservices.UserSoapService;
 import jakarta.xml.ws.Endpoint;
 
 import java.sql.SQLException;
@@ -10,6 +11,5 @@ public class Main {
         String address="http://0.0.0.0:8081/";
         Endpoint.publish(address, new UserSoapService());
         System.out.println("Started on : "+address);
-
     }
 }

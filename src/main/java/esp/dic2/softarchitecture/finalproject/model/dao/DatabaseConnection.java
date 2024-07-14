@@ -6,7 +6,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class ConnexionBaseDonnees {
+public class DatabaseConnection {
 
     private ConfigurationManager configurationManager = ConfigurationManager.getInstance();
     private  String URL = configurationManager.getConfigValue("DATABASE_URL");

@@ -1,12 +1,12 @@
 package esp.dic2.softarchitecture.finalproject.model.domain;
 
 
-public class Utilisateur {
+public class User {
 
     private String nom;
     private String mot_de_passe;
 
-    public Utilisateur(String nom, String mot_de_passe) {
+    public User(String nom, String mot_de_passe) {
 
         this.nom = nom;
         this.mot_de_passe = mot_de_passe;
